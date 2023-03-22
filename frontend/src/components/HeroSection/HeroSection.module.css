@@ -1,0 +1,57 @@
+.heroSection {
+	width: 80%;
+	margin: 3rem auto;
+}
+
+.heroSection_box {
+	display: flex;
+
+	gap: 2rem;
+}
+
+.heroSection_box_left {
+	flex: 1;
+	padding-right: 6rem;
+}
+
+.heroSection_box_left h3 {
+	font-size: 5.5rem;
+	line-height: 1;
+	margin-bottom: 3rem;
+}
+
+.heroSection_box_left p {
+	font-size: 1.25rem;
+	margin-bottom: 2rem;
+}
+
+.heroSection_box_right {
+	flex-shrink: 0;
+}
+
+.heroSection_box_right img {
+	width: 800px;
+	height: 100%;
+}
+
+@media screen and (max-width: 35em) {
+	.heroSection {
+		width: 90%;
+	}
+}
+
+@media screen and (max-width: 55em) {
+	.heroSection_box {
+		grid-template-columns: 1fr;
+		gap: 4rem;
+	}
+
+	.heroSection_box_left {
+		padding-right: 2rem;
+	}
+
+	.heroSection_box_left h1 {
+		line-height: 1;
+		font-size: 3rem;
+	}
+}

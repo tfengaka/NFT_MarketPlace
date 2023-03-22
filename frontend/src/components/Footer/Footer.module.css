@@ -1,0 +1,90 @@
+.footer {
+	width: 100%;
+	padding-block: 1.5rem;
+	position: relative;
+}
+
+.footer_box {
+	width: 80%;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1.3fr repeat(2, 1fr) 2fr;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 3rem;
+}
+
+/* SOCIAL */
+.footer_social {
+	display: flex;
+	gap: 1.3rem;
+	align-items: center;
+}
+
+.footer_box_social_logo {
+	padding-top: 1em;
+	width: 100px;
+	height: auto;
+}
+
+.footer_social .footer_social_link {
+	font-size: 2rem;
+	width: 3rem;
+	height: 3rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	transition: all 0.3s ease;
+	cursor: pointer;
+}
+
+.footer_social .footer_social_link:hover {
+	background-color: var(--icons-color);
+	color: var(--shadow-dark-color);
+	box-shadow: var(--box-shadow);
+}
+
+.subscribe_box {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px 16px;
+	background-color: var(--icons-color);
+	color: var(--shadow-dark-color);
+	border-radius: 5rem;
+	margin-top: 3rem;
+}
+
+.subscribe_box input {
+	background: transparent;
+	border: none;
+	outline: none;
+	width: 100%;
+	color: var(--icons-bg-color);
+}
+
+.subscribe_box input::placeholder {
+	color: var(--shadow-dark-color);
+}
+
+.subscribe_box_send {
+	cursor: pointer;
+	font-size: 2rem;
+}
+
+/* MEDIA QUERY */
+@media screen and (max-width: 45em) {
+	.footer_box {
+		width: 90%;
+		grid-template-columns: 1fr 2fr;
+	}
+}
+
+@media screen and (max-width: 35em) {
+	.footer_box {
+		width: 90%;
+		grid-template-columns: 1fr;
+	}
+}
