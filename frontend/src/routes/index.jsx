@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Home } from "~/pages";
+import { Home, Collection } from "~/pages";
 function Router() {
 	return (
 		<Routes>
@@ -17,7 +17,7 @@ function Router() {
 				<Route path="connectWallet" element={<div>Connect Wallet</div>} />
 				<Route path="author" element={<div>Author Profile</div>} />
 				<Route path="searchPage" element={<div>Search</div>} />
-				<Route path="collection" element={<div>Collection</div>} />
+				<Route path="collection" element={<Collection />} />
 				<Route path="nft-details" element={<div>NFT Details</div>} />
 			</Route>
 		</Routes>
