@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Home, Collection } from "~/pages";
+import { Home, Collection, UploadNFT } from "~/pages";
 function Router() {
 	return (
 		<Routes>
@@ -12,7 +12,7 @@ function Router() {
 				<Route path="subscription" element={<div>Subscription</div>} />
 
 				<Route path="account" element={<div>Account Setting</div>} />
-				<Route path="uploadNFT" element={<div>Upload NFT</div>} />
+				<Route path="uploadNFT" element={<UploadNFT />} />
 				<Route path="blog" element={<div>Blog</div>} />
 				<Route path="connectWallet" element={<div>Connect Wallet</div>} />
 				<Route path="author" element={<div>Author Profile</div>} />
