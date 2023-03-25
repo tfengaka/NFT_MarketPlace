@@ -1,56 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
-	HeroSection,
-	Service,
-	BigNFTSilder,
-	Title,
 	AudioLive,
-	Loader,
-	FollowerTab,
-	Slider,
+	BigNFTSilder,
+	Brand,
+	Category,
 	Collection,
 	Filter,
+	FollowerTab,
+	HeroSection,
+	Loader,
 	NFTCard,
-	Category,
-	Brand,
+	Service,
+	Slider,
+	Title,
 	Video,
 } from "~/components";
 import Style from "~/styles/home.module.css";
 
 import { topCreators } from "~/data";
+import { useNFTMarketPlace } from "../contexts/MarketplaceContext";
 
 const Home = () => {
+	const [marketItems, setMarketItems] = useState([]);
+	const { fetchMarketItems } = useNFTMarketPlace();
+
+	useEffect(() => {
+		(async () => {
+			try {
+				const items = await fetchMarketItems();
+				console.log("items", items);
+				setMarketItems(items);
+			} catch (error) {
+				console.error(error);
+			}
+		})();
+	}, [fetchMarketItems]);
+
 	return (
 		<div className={Style.homePage}>
 			<HeroSection />
 			<Service />
 			<BigNFTSilder />
 			<Title
-				heading="Audio Collection"
-				paragraph="Discover the most outstanding NFTs in all topics of life."
-			/>
-			<AudioLive />
-			{topCreators.length === 0 ? (
-				<Loader />
-			) : (
-				<FollowerTab TopCreator={topCreators} />
-			)}
-
-			<Slider />
-			<Collection />
-			<Title
 				heading="Featured NFTs"
 				paragraph="Discover the most outstanding NFTs in all topics of life."
 			/>
 			<Filter />
-			{/* {nfts.length == 0 ? <Loader /> : <NFTCard NFTData={nfts} />} */}
-			<NFTCard NFTData={[]} />
+			{marketItems && marketItems.length > 0 ? (
+				<NFTCard NFTData={marketItems} />
+			) : (
+				<Loader />
+			)}
 			<Title
-				heading="Browse by category"
-				paragraph="Explore the NFTs in the most featured categories."
+				heading="Audio Collection"
+				paragraph="Discover the most outstanding NFTs in all topics of life."
 			/>
-			<Category />
+			<AudioLive />
+			<Slider />
 			<Brand />
 			<Video />
 		</div>

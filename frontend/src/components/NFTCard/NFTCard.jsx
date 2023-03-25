@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsImages } from "react-icons/bs";
+import { MediaRenderer } from "@thirdweb-dev/react";
 
 //INTERNAL IMPORT
 import Style from "./NFTCard.module.css";
 import { Link } from "react-router-dom";
 
-import { NFTData } from "~/data";
-
-const NFTCard = () => {
+const NFTCard = ({ NFTData }) => {
 	const [like, setLike] = useState(true);
 
 	const likeNft = () => {
@@ -21,15 +20,15 @@ const NFTCard = () => {
 
 	return (
 		<div className={Style.NFTCard}>
-			{NFTData.map((el, i) => (
-				<Link to="/NFT-details" key={i + 1}>
+			{NFTData.map((item, index) => (
+				<Link to={`/nft-details/${item.tokenId}`} key={index}>
 					<div className={Style.NFTCard_box}>
 						<div className={Style.NFTCard_box_img}>
-							<img
-								src={el.image}
+							<MediaRenderer
+								src={item.image}
 								alt="NFT images"
-								width={600}
-								height={600}
+								width="100%"
+								height="500px"
 								className={Style.NFTCard_box_img_img}
 							/>
 						</div>
@@ -62,9 +61,7 @@ const NFTCard = () => {
 						<div className={Style.NFTCard_box_update_details}>
 							<div className={Style.NFTCard_box_update_details_price}>
 								<div className={Style.NFTCard_box_update_details_price_box}>
-									<h4>
-										{el.name} #{el.tokenId}
-									</h4>
+									<h4>NFT#{item.tokenId}</h4>
 
 									<div
 										className={Style.NFTCard_box_update_details_price_box_box}
@@ -73,7 +70,7 @@ const NFTCard = () => {
 											className={Style.NFTCard_box_update_details_price_box_bid}
 										>
 											<small>Current Bid</small>
-											<p>{el.price}ETH</p>
+											<p>{item.price}ETH</p>
 										</div>
 										<div
 											className={

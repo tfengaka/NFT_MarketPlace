@@ -5,11 +5,15 @@ import { defineConfig } from "vite";
 export default defineConfig({
 	plugins: [react()],
 	server: {
-		port: 3000,
+		port: 3002,
 	},
 	resolve: {
 		alias: {
 			"~": resolve(__dirname, "src"),
 		},
+	},
+	define: {
+		global: "globalThis",
+		"process.env": {},
 	},
 });
