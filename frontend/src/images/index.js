@@ -57,9 +57,11 @@ import loader from "./loadergif.gif";
 import errorgif from "./error.gif";
 import transfer from "./transfer.gif";
 import transferEther from "./ethereTransfer.gif";
+import thirdweb from "./thirdweb.png";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
+	thirdweb,
 	hero2,
 	founder1,
 	founder2,

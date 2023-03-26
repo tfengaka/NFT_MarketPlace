@@ -6,7 +6,6 @@ import { MdTimer } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 //INTERNAL IMPORT
-import { LikeProfile } from "~/components";
 import Style from "./NFTCardTwo.module.css";
 
 const NFTCardTwo = ({ NFTData }) => {
@@ -22,8 +21,6 @@ const NFTCardTwo = ({ NFTData }) => {
 			setLikeInc(23 + 1);
 		}
 	};
-
-	console.log(NFTData);
 
 	return (
 		<div className={Style.NFTCardTwo}>
@@ -53,16 +50,14 @@ const NFTCardTwo = ({ NFTData }) => {
 
 						<div className={Style.NFTCardTwo_box_info}>
 							<div className={Style.NFTCardTwo_box_info_left}>
-								<LikeProfile />
 								<p>{el.name || `NFT #${i + 1}`}</p>
 							</div>
-							<small>4{i + 2} in stock</small>
 						</div>
 
 						<div className={Style.NFTCardTwo_box_price}>
 							<div className={Style.NFTCardTwo_box_price_box}>
 								<small>Current Bid</small>
-								<p>{el.price || i + 4} TBNB</p>
+								<p>{el.price || i + 4} ETH</p>
 							</div>
 							<div className={Style.NFTCardTwo_box_price_stock}>
 								<MdTimer /> <span>{i + 1} hours left</span>

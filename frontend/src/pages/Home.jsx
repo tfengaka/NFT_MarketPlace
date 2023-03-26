@@ -4,10 +4,6 @@ import {
 	AudioLive,
 	BigNFTSilder,
 	Brand,
-	Category,
-	Collection,
-	Filter,
-	FollowerTab,
 	HeroSection,
 	Loader,
 	NFTCard,
@@ -18,7 +14,6 @@ import {
 } from "~/components";
 import Style from "~/styles/home.module.css";
 
-import { topCreators } from "~/data";
 import { useNFTMarketPlace } from "../contexts/MarketplaceContext";
 
 const Home = () => {
@@ -46,7 +41,6 @@ const Home = () => {
 				heading="Featured NFTs"
 				paragraph="Discover the most outstanding NFTs in all topics of life."
 			/>
-			<Filter />
 			{marketItems && marketItems.length > 0 ? (
 				<NFTCard NFTData={marketItems} />
 			) : (

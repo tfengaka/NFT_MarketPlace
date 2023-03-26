@@ -16,7 +16,7 @@ const sliderData = [
 		collection: "GYm",
 		price: "00664 ETH",
 		like: 243,
-		image: images.user1,
+		image: images.thirdweb,
 		nftImage: images.nft_image_1,
 		time: {
 			days: 21,
@@ -32,7 +32,7 @@ const sliderData = [
 		collection: "Home",
 		price: "0000004 ETH",
 		like: 243,
-		image: images.user2,
+		image: images.thirdweb,
 		nftImage: images.nft_image_2,
 		time: {
 			days: 77,
@@ -48,7 +48,7 @@ const sliderData = [
 		collection: "GYm",
 		price: "0000064 ETH",
 		like: 243,
-		image: images.user3,
+		image: images.thirdweb,
 		nftImage: images.nft_image_3,
 		time: {
 			days: 37,
@@ -64,7 +64,7 @@ const sliderData = [
 		collection: "GYm",
 		price: "4664 ETH",
 		like: 243,
-		image: images.user4,
+		image: images.thirdweb,
 		nftImage: images.nft_image_1,
 		time: {
 			days: 87,
@@ -99,11 +99,10 @@ const BigNFTSilder = () => {
 					<h2>{sliderData[idNumber].title}</h2>
 					<div className={Style.bigNFTSlider_box_left_creator}>
 						<div className={Style.bigNFTSlider_box_left_creator_profile}>
-							<img
-								className={Style.bigNFTSlider_box_left_creator_profile_img}
-								src={sliderData[idNumber].image}
-								alt="profile"
-							/>
+							<div className={Style.bigNFTSlider_box_left_creator_profile_img}>
+								<img src={sliderData[idNumber].image} alt="profile" />
+							</div>
+
 							<div className={Style.bigNFTSlider_box_left_creator_profile_info}>
 								<p>Creator</p>
 								<h4>
@@ -119,13 +118,6 @@ const BigNFTSilder = () => {
 							<AiFillFire
 								className={Style.bigNFTSlider_box_left_creator_collection_icon}
 							/>
-
-							<div
-								className={Style.bigNFTSlider_box_left_creator_collection_info}
-							>
-								<p>Collection</p>
-								<h4>{sliderData[idNumber].collection}</h4>
-							</div>
 						</div>
 					</div>
 

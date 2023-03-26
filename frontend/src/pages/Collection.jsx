@@ -1,10 +1,10 @@
 import React from "react";
 
 //INTERNAL IMPORT
-import Style from "../styles/collection.module.css";
+import { Brand, Slider } from "../components";
 import images from "../images";
 import { Banner, CollectionProfile, NFTCardTwo } from "../modules/Collections";
-import { Slider, Brand, Filter } from "../components";
+import Style from "../styles/collection.module.css";
 
 const Collection = () => {
 	const collectionArray = [
@@ -37,9 +37,7 @@ const Collection = () => {
 		<div className={Style.collection}>
 			<Banner bannerImage={images.creatorbackground1} />
 			<CollectionProfile />
-			<Filter />
 			<NFTCardTwo NFTData={collectionArray} />
-
 			<Slider />
 			<Brand />
 		</div>

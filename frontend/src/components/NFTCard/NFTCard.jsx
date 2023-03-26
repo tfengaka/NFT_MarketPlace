@@ -61,7 +61,7 @@ const NFTCard = ({ NFTData }) => {
 						<div className={Style.NFTCard_box_update_details}>
 							<div className={Style.NFTCard_box_update_details_price}>
 								<div className={Style.NFTCard_box_update_details_price_box}>
-									<h4>NFT#{item.tokenId}</h4>
+									<h4>{item.name || `NFT#${item.tokenId}`}</h4>
 
 									<div
 										className={Style.NFTCard_box_update_details_price_box_box}
@@ -70,14 +70,7 @@ const NFTCard = ({ NFTData }) => {
 											className={Style.NFTCard_box_update_details_price_box_bid}
 										>
 											<small>Current Bid</small>
-											<p>{item.price}ETH</p>
-										</div>
-										<div
-											className={
-												Style.NFTCard_box_update_details_price_box_stock
-											}
-										>
-											<small>61 in stock</small>
+											<p>{item.price} ETH</p>
 										</div>
 									</div>
 								</div>

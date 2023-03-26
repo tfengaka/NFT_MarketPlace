@@ -90,8 +90,9 @@
 
 .NFTCardTwo_box_price_box p {
 	border: 2px solid var(--icons-color);
-	padding: 1.25rem 1rem;
-	font-size: 1.4rem;
+	padding: 1.25rem 1.5rem;
+	font-size: 1.25rem;
+	font-weight: 600;
 	margin-top: 0.5rem;
 	border-radius: 0.3rem;
 }
@@ -99,10 +100,10 @@
 .NFTCardTwo_box_price_box small {
 	position: absolute;
 	font-weight: 600;
-	top: 10px;
+	top: 13%;
 	left: 5%;
-	background-color: var(--icons-bg-color);
-	color: var(--icons-color);
+	background-color: var(--icons-color);
+	color: var(--icons-bg-color);
 	padding: 8px;
 	border-radius: 0.2rem;
 }
