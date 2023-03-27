@@ -1,7 +1,9 @@
+import { MediaRenderer } from "@thirdweb-dev/react";
 import React, { useCallback, useState } from "react";
-import { AiFillFire, AiFillHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
 import { MdTimer, MdVerified } from "react-icons/md";
 import { TbArrowBigLeftLines, TbArrowBigRightLine } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 
 //INTERNAL IMPORT
 import images from "~/images";
@@ -75,15 +77,16 @@ const sliderData = [
 	},
 ];
 
-const BigNFTSilder = () => {
+const BigNFTSilder = ({ data }) => {
+	const navigate = useNavigate();
 	const [idNumber, setIdNumber] = useState(0);
 
 	//-------INC
 	const inc = useCallback(() => {
-		if (idNumber + 1 < sliderData.length) {
+		if (idNumber + 1 < data?.length) {
 			setIdNumber(idNumber + 1);
 		}
-	}, [idNumber]);
+	}, [data, idNumber]);
 
 	//-------DEC
 	const dec = useCallback(() => {
@@ -100,24 +103,18 @@ const BigNFTSilder = () => {
 					<div className={Style.bigNFTSlider_box_left_creator}>
 						<div className={Style.bigNFTSlider_box_left_creator_profile}>
 							<div className={Style.bigNFTSlider_box_left_creator_profile_img}>
-								<img src={sliderData[idNumber].image} alt="profile" />
+								<img src={images.thirdweb} alt="profile" />
 							</div>
 
 							<div className={Style.bigNFTSlider_box_left_creator_profile_info}>
 								<p>Creator</p>
 								<h4>
-									{sliderData[idNumber].name}{" "}
+									<span>{data[idNumber]?.owner}</span>
 									<span>
 										<MdVerified />
 									</span>
 								</h4>
 							</div>
-						</div>
-
-						<div className={Style.bigNFTSlider_box_left_creator_collection}>
-							<AiFillFire
-								className={Style.bigNFTSlider_box_left_creator_collection_icon}
-							/>
 						</div>
 					</div>
 
@@ -125,8 +122,8 @@ const BigNFTSilder = () => {
 						<div className={Style.bigNFTSlider_box_left_bidding_box}>
 							<small>Current Bid</small>
 							<span>
-								<strong>{sliderData[idNumber].price}</strong>
-								<span>{"($221,21)"}</span>
+								<strong>{`${data[idNumber]?.price} ETH`}</strong>
+								{/* <span>{"(~$8888)"}</span> */}
 							</span>
 						</div>
 
@@ -141,35 +138,38 @@ const BigNFTSilder = () => {
 							<div
 								className={Style.bigNFTSlider_box_left_bidding_box_timer_item}
 							>
-								<p>{sliderData[idNumber].time.days}</p>
+								<p>{37}</p>
 								<span>Days</span>
 							</div>
 
 							<div
 								className={Style.bigNFTSlider_box_left_bidding_box_timer_item}
 							>
-								<p>{sliderData[idNumber].time.hours}</p>
+								<p>{20}</p>
 								<span>Hours</span>
 							</div>
 
 							<div
 								className={Style.bigNFTSlider_box_left_bidding_box_timer_item}
 							>
-								<p>{sliderData[idNumber].time.minutes}</p>
+								<p>{11}</p>
 								<span>mins</span>
 							</div>
 
 							<div
 								className={Style.bigNFTSlider_box_left_bidding_box_timer_item}
 							>
-								<p>{sliderData[idNumber].time.seconds}</p>
+								<p>{55}</p>
 								<span>secs</span>
 							</div>
 						</div>
 
 						<div className={Style.bigNFTSlider_box_left_button}>
 							<Button btnName="Place" handleClick={() => {}} />
-							<Button btnName="View" handleClick={() => {}} />
+							<Button
+								btnName="View"
+								handleClick={() => navigate("/nft-details/1", { state: data })}
+							/>
 						</div>
 					</div>
 
@@ -187,9 +187,11 @@ const BigNFTSilder = () => {
 
 				<div className={Style.bigNFTSlider_box_right}>
 					<div className={Style.bigNFTSlider_box_right_box}>
-						<img
-							src={sliderData[idNumber].nftImage}
+						<MediaRenderer
+							src={data[idNumber]?.image}
 							alt="NFT"
+							width="100%"
+							height="100%"
 							className={Style.bigNFTSlider_box_right_box_img}
 						/>
 

@@ -7,24 +7,16 @@ import Style from "./Discover.module.css";
 //--------DISCOVER NAVIGATION MENU
 const discover = [
 	{
-		name: "Collection",
-		link: "/collection",
+		name: "Home",
+		link: "/",
 	},
 	{
 		name: "Search",
 		link: "/searchPage",
 	},
 	{
-		name: "Author Profile",
+		name: "My NFTs",
 		link: "/author",
-	},
-	{
-		name: "NFT Details",
-		link: "/nft-details",
-	},
-	{
-		name: "Account Setting",
-		link: "/account",
 	},
 	{
 		name: "Upload NFT",

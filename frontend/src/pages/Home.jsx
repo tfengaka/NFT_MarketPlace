@@ -24,7 +24,6 @@ const Home = () => {
 		(async () => {
 			try {
 				const items = await fetchMarketItems();
-				console.log("items", items);
 				setMarketItems(items);
 			} catch (error) {
 				console.error(error);
@@ -36,7 +35,9 @@ const Home = () => {
 		<div className={Style.homePage}>
 			<HeroSection />
 			<Service />
-			<BigNFTSilder />
+			<BigNFTSilder
+				data={marketItems?.slice(0, (marketItems.length / 2).toFixed(0)) || []}
+			/>
 			<Title
 				heading="Featured NFTs"
 				paragraph="Discover the most outstanding NFTs in all topics of life."

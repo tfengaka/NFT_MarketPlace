@@ -1,32 +1,15 @@
+import { MediaRenderer } from "@thirdweb-dev/react";
 import React, { useState } from "react";
 
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsImages } from "react-icons/bs";
-import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
+import images from "../../../images";
 
 //INTERNAL IMPORT
 import Style from "./NFTDetailsImg.module.css";
 
 const NFTDetailsImg = ({ nft }) => {
-	const [description, setDescription] = useState(true);
-	const [details, setDetails] = useState(true);
 	const [like, setLike] = useState(false);
-
-	const openDescription = () => {
-		if (!description) {
-			setDescription(true);
-		} else {
-			setDescription(false);
-		}
-	};
-
-	const openDetails = () => {
-		if (!details) {
-			setDetails(true);
-		} else {
-			setDetails(false);
-		}
-	};
 
 	const likeNFT = () => {
 		if (!like) {
@@ -57,53 +40,15 @@ const NFTDetailsImg = ({ nft }) => {
 					</div>
 
 					<div className={Style.NFTDetailsImg_box_NFT_img}>
-						<img
-							src={nft.image}
+						<MediaRenderer
+							src={nft?.image}
 							className={Style.NFTDetailsImg_box_NFT_img_img}
-							alt=""
-							width={700}
-							height={800}
-							objectFit="cover"
+							poster={images.creatorbackground10}
+							width="100%"
+							height="100%"
 						/>
 					</div>
 				</div>
-
-				<div
-					className={Style.NFTDetailsImg_box_description}
-					onClick={() => openDescription()}
-				>
-					<p>Description</p>
-					{description ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
-				</div>
-
-				{description && (
-					<div className={Style.NFTDetailsImg_box_description_box}>
-						<p>{nft.description}</p>
-					</div>
-				)}
-
-				<div
-					className={Style.NFTDetailsImg_box_details}
-					onClick={() => openDetails()}
-				>
-					<p>Details</p>
-					{details ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
-				</div>
-
-				{details && (
-					<div className={Style.NFTDetailsImg_box_details_box}>
-						<small>2000 x 2000 px.IMAGE(685KB)</small>
-						<p>
-							<small>Contract Address</small>
-							<br></br>
-							{nft.seller}
-						</p>
-						<p>
-							<small>Token ID</small>
-							&nbsp; &nbsp; {nft.tokenId}
-						</p>
-					</div>
-				)}
 			</div>
 		</div>
 	);

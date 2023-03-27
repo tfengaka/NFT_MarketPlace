@@ -9,8 +9,8 @@ import DropZone from "./DropZone/DropZone";
 import Style from "./Upload.module.css";
 
 const UloadNFT = ({ createNFT }) => {
-	const [price, setPrice] = useState("0.025");
-	const [name, setName] = useState("Wallpaper NFT");
+	const [price, setPrice] = useState("");
+	const [name, setName] = useState("");
 	const [website, setWebsite] = useState("");
 	const [ipfs, setIpfs] = useState("");
 

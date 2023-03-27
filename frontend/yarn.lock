@@ -5853,6 +5853,11 @@ react-slick@^0.29.0:
     lodash.debounce "^4.0.8"
     resize-observer-polyfill "^1.5.0"
 
+react-slugify@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-slugify/-/react-slugify-3.0.2.tgz#899aace8ccfb55bcde9fff087b10578f12b50d22"
+  integrity sha512-34nfD7AwrQUHOMf0WqdKGG0IS1AaPmzUgoyfA0sqiq2Zhdm5M3GmQpX+TVA4cUCwTfuR66mDgVD79529TEyzng==
+
 react-toastify@^9.1.2:
   version "9.1.2"
   resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-9.1.2.tgz#293aa1f952240129fe485ae5cb2f8d09c652cf3f"
