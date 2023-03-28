@@ -11,6 +11,9 @@ function useMarketplaceProvider() {
 	const { contract: marketplaceContract } = useContract(
 		import.meta.env.VITE_MARKETPLACE_ADDRESS
 	);
+	const { contract: transferFundContract } = useContract(
+		import.meta.env.VITE_TRANSFERFUND_ADDRESS
+	);
 	const address = useAddress();
 
 	const { mutateAsync: create } = useContractWrite(
@@ -18,12 +21,9 @@ function useMarketplaceProvider() {
 		"createToken"
 	);
 
-	async function fetchMarketItems() {
-		if (!marketplaceContract) return;
-		const data = await marketplaceContract.call("fetchMarketItems");
-
-		const convertedMarketItems = await Promise.all(
-			data.map(async (nft) => {
+	const convertNFTData = async (rawArr) => {
+		const convertedData = await Promise.all(
+			rawArr.map(async (nft) => {
 				const tokenId = nft.tokenId.toNumber();
 				const tokenURI = await marketplaceContract.call("tokenURI", tokenId);
 				const ntfConverted = {
@@ -38,8 +38,25 @@ function useMarketplaceProvider() {
 				return ntfConverted;
 			})
 		);
+		return convertedData;
+	};
 
-		return convertedMarketItems;
+	async function fetchMarketItems() {
+		if (!marketplaceContract) return;
+		const data = await marketplaceContract.call("fetchMarketItems");
+		return await convertNFTData(data);
+	}
+
+	async function fetchMyNFTs() {
+		if (!marketplaceContract) return;
+		const data = await marketplaceContract.call("fetchMyNFTs");
+		return await convertNFTData(data);
+	}
+
+	async function fetchListedNFTs() {
+		if (!marketplaceContract) return;
+		const data = await marketplaceContract.call("fetchItemsListed");
+		return await convertNFTData(data);
 	}
 
 	async function createNewNFT(tokenURI, name, price) {
@@ -66,7 +83,15 @@ function useMarketplaceProvider() {
 		}
 	}
 
-	return { marketplaceContract, address, fetchMarketItems, createNewNFT };
+	return {
+		marketplaceContract,
+		transferFundContract,
+		address,
+		fetchMarketItems,
+		fetchMyNFTs,
+		fetchListedNFTs,
+		createNewNFT,
+	};
 }
 
 export function MarketplaceProvider({ children }) {

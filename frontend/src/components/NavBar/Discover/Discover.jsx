@@ -11,16 +11,16 @@ const discover = [
 		link: "/",
 	},
 	{
-		name: "Search",
-		link: "/searchPage",
-	},
-	{
-		name: "My NFTs",
-		link: "/author",
+		name: "My Profile",
+		link: "/profile",
 	},
 	{
 		name: "Upload NFT",
 		link: "/uploadNFT",
+	},
+	{
+		name: "Search",
+		link: "/searchPage",
 	},
 ];
 

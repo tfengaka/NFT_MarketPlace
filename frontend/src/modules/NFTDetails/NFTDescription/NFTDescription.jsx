@@ -16,6 +16,7 @@ import {
 	TiSocialTwitter,
 	TiSocialYoutube,
 } from "react-icons/ti";
+import { Link } from "react-router-dom";
 
 //INTERNAL IMPORT
 import { Button } from "~/components";
@@ -23,9 +24,7 @@ import images from "~/images";
 import Style from "./NFTDescription.module.css";
 
 //IMPORT SMART CONTRACT
-import { Link } from "react-router-dom";
 import { useNFTMarketPlace } from "../../../contexts/MarketplaceContext";
-// import { NFTMarketplaceContext } from "../../Context/NFTMarketplaceContext";
 
 const NFTDescription = ({ nft }) => {
 	const [social, setSocial] = useState(false);
@@ -106,9 +105,7 @@ const NFTDescription = ({ nft }) => {
 				</div>
 				{/* //Part TWO */}
 				<div className={Style.NFTDescription_box_profile}>
-					<h1>
-						{nft.name} #{nft.tokenId}
-					</h1>
+					<h1>{`${nft?.name} #${nft?.tokenId}`}</h1>
 					<div className={Style.NFTDescription_box_profile_box}>
 						<div className={Style.NFTDescription_box_profile_box_left}>
 							<div className={Style.NFTDescription_box_profile_box_left_img}>
@@ -116,10 +113,9 @@ const NFTDescription = ({ nft }) => {
 							</div>
 							<div className={Style.NFTDescription_box_profile_box_left_info}>
 								<small>Creator</small> <br />
-								{/* <Link href={{ pathname: "/author", query: `${nft.seller}` }}> */}
-								<Link to="/author">
+								<Link to="/profile">
 									<span>
-										{nft.owner} <MdVerified />
+										{nft?.owner} <MdVerified />
 									</span>
 								</Link>
 							</div>
@@ -135,7 +131,7 @@ const NFTDescription = ({ nft }) => {
 							>
 								<small>Current Bid</small>
 								<p>
-									{nft.price} ETH <span>( ≈ $)</span>
+									{nft?.price} ETH <span>( ≈ $)</span>
 								</p>
 							</div>
 						</div>
@@ -179,9 +175,9 @@ const NFTDescription = ({ nft }) => {
 						</div>
 
 						<div className={Style.NFTDescription_box_profile_biding_box_button}>
-							{address === nft.seller.toLowerCase() ? (
+							{address === nft?.seller ? (
 								<p>You can't buy your own NFT</p>
-							) : address === nft.owner.toLowerCase() ? (
+							) : address === nft?.owner ? (
 								<Button
 									icon={<FaWallet />}
 									btnName="List on Marketplace"

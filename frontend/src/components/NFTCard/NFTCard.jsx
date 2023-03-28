@@ -6,6 +6,7 @@ import { MediaRenderer } from "@thirdweb-dev/react";
 //INTERNAL IMPORT
 import Style from "./NFTCard.module.css";
 import { Link } from "react-router-dom";
+import slugify from "react-slugify";
 
 const NFTCard = ({ NFTData }) => {
 	const [like, setLike] = useState(true);
@@ -21,7 +22,11 @@ const NFTCard = ({ NFTData }) => {
 	return (
 		<div className={Style.NFTCard}>
 			{NFTData.map((item, index) => (
-				<Link to={`/nft-details/${item.tokenId}`} key={index}>
+				<Link
+					to={`/nft-details/${slugify(item.name)}`}
+					key={index}
+					state={{ ...item }}
+				>
 					<div className={Style.NFTCard_box}>
 						<div className={Style.NFTCard_box_img}>
 							<MediaRenderer

@@ -35,9 +35,14 @@ const Home = () => {
 		<div className={Style.homePage}>
 			<HeroSection />
 			<Service />
-			<BigNFTSilder
-				data={marketItems?.slice(0, (marketItems.length / 2).toFixed(0)) || []}
-			/>
+			{marketItems && marketItems.length > 0 && (
+				<BigNFTSilder
+					data={
+						marketItems?.slice(0, (marketItems.length / 2).toFixed(0)) || []
+					}
+				/>
+			)}
+
 			<Title
 				heading="Featured NFTs"
 				paragraph="Discover the most outstanding NFTs in all topics of life."

@@ -1,9 +1,11 @@
+import { MediaRenderer } from "@thirdweb-dev/react";
 import React, { useState } from "react";
 
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsImage } from "react-icons/bs";
-import { MdTimer } from "react-icons/md";
 import { Link } from "react-router-dom";
+import slugify from "react-slugify";
+import images from "../../../images";
 
 //INTERNAL IMPORT
 import Style from "./NFTCardTwo.module.css";
@@ -24,9 +26,13 @@ const NFTCardTwo = ({ NFTData }) => {
 
 	return (
 		<div className={Style.NFTCardTwo}>
-			{NFTData?.map((el, i) => (
-				<Link to="/NFT-details" key={i + 1}>
-					<div className={Style.NFTCardTwo_box} key={i + 1}>
+			{NFTData?.map((item, index) => (
+				<Link
+					to={`/nft-details/${slugify(item.name)}`}
+					key={index + 1}
+					state={item}
+				>
+					<div className={Style.NFTCardTwo_box}>
 						<div className={Style.NFTCardTwo_box_like}>
 							<div className={Style.NFTCardTwo_box_like_box}>
 								<div className={Style.NFTCardTwo_box_like_box_box}>
@@ -40,27 +46,24 @@ const NFTCardTwo = ({ NFTData }) => {
 							</div>
 						</div>
 
-						<div className={Style.NFTCardTwo_box_img}>
-							<img
-								src={el.image}
-								alt="NFT"
-								className={Style.NFTCardTwo_box_img_img}
-							/>
-						</div>
+						<MediaRenderer
+							src={item.image}
+							poster={images.creatorbackground10}
+							controls={true}
+							width="100%"
+							height={360}
+							className={Style.NFTCardTwo_box_img}
+						/>
 
 						<div className={Style.NFTCardTwo_box_info}>
 							<div className={Style.NFTCardTwo_box_info_left}>
-								<p>{el.name || `NFT #${i + 1}`}</p>
+								<p>{`${item.name} #${item.tokenId}`}</p>
 							</div>
-						</div>
-
-						<div className={Style.NFTCardTwo_box_price}>
-							<div className={Style.NFTCardTwo_box_price_box}>
-								<small>Current Bid</small>
-								<p>{el.price || i + 4} ETH</p>
-							</div>
-							<div className={Style.NFTCardTwo_box_price_stock}>
-								<MdTimer /> <span>{i + 1} hours left</span>
+							<div className={Style.NFTCardTwo_box_info_right}>
+								<div className={Style.NFTCardTwo_box_price_box}>
+									<small>Current bid: </small>
+									<span>{item.price} ETH</span>
+								</div>
 							</div>
 						</div>
 					</div>

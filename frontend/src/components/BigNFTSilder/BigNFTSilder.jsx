@@ -168,7 +168,9 @@ const BigNFTSilder = ({ data }) => {
 							<Button btnName="Place" handleClick={() => {}} />
 							<Button
 								btnName="View"
-								handleClick={() => navigate("/nft-details/1", { state: data })}
+								handleClick={() =>
+									navigate("/nft-details/1", { state: { ...data } })
+								}
 							/>
 						</div>
 					</div>
