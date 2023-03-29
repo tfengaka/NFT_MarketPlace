@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 //INTERNAL IMPORT
@@ -7,7 +7,11 @@ import NFTDetailsPage from "~/modules/NFTDetails";
 
 const NFTDetail = () => {
 	const { state } = useLocation();
-	console.log(state);
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
 	return (
 		<div>
 			<NFTDetailsPage nft={state} />

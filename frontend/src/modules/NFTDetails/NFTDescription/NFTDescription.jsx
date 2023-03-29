@@ -27,6 +27,8 @@ import Style from "./NFTDescription.module.css";
 import { useNFTMarketPlace } from "../../../contexts/MarketplaceContext";
 
 const NFTDescription = ({ nft }) => {
+	const { address, buyNFT } = useNFTMarketPlace();
+
 	const [social, setSocial] = useState(false);
 	const [NFTMenu, setNFTMenu] = useState(false);
 
@@ -47,9 +49,6 @@ const NFTDescription = ({ nft }) => {
 			setNFTMenu(false);
 		}
 	};
-
-	//SMART CONTRACT DATA
-	const { address } = useNFTMarketPlace();
 
 	return (
 		<div className={Style.NFTDescription}>
@@ -193,9 +192,7 @@ const NFTDescription = ({ nft }) => {
 								<Button
 									icon={<FaWallet />}
 									btnName="Buy NFT"
-									handleClick={() => {
-										console.log("Buy Token");
-									}}
+									handleClick={() => buyNFT(nft)}
 									classStyle={Style.button}
 								/>
 							)}

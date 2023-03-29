@@ -2,12 +2,19 @@ import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { Footer, NavBar } from "~/components";
-import { Home, NFTDetail, Profile, UploadNFT, ResellToken } from "~/pages";
+import {
+	Home,
+	NFTDetail,
+	Profile,
+	ResellToken,
+	Search,
+	UploadNFT,
+} from "~/pages";
 import { MarketplaceProvider } from "./contexts/MarketplaceContext";
+import PrivateRoute from "./routes/PrivateRoute";
 
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import PrivateRoute from "./routes/PrivateRoute";
 import "./styles/globals.css";
 
 function App() {
@@ -24,9 +31,11 @@ function App() {
 					<Route path="uploadNFT" element={<UploadNFT />} />
 					<Route element={<PrivateRoute />}>
 						<Route path="profile" element={<Profile />} />
-						<Route path="resell-token" element={<ResellToken />} />
 					</Route>
-					<Route path="searchPage" element={<div>Search</div>} />
+					<Route path="resell-token">
+						<Route path=":slug" element={<ResellToken />} />
+					</Route>
+					<Route path="searchPage" element={<Search />} />
 					<Route path="nft-details">
 						<Route path=":slug" element={<NFTDetail />} />
 					</Route>

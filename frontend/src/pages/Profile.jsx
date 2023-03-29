@@ -15,9 +15,10 @@ import { toast } from "react-toastify";
 import { useNFTMarketPlace } from "~/contexts/MarketplaceContext";
 
 function Profile() {
-	const { address, fetchListedNFTs, fetchMyNFTs } = useNFTMarketPlace();
+	const { address, fetchMarketItems, fetchListedNFTandMyNFT } =
+		useNFTMarketPlace();
 
-	const [myNFTs, setMyNFTs] = useState([]);
+	const [sellingNFTs, setSellingNFTs] = useState([]);
 	const [collectNFTs, setCollectNFTs] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [collectiables, setCollectiables] = useState(true);
@@ -27,10 +28,10 @@ function Profile() {
 		(async () => {
 			setLoading(true);
 			try {
-				const listedNFTs = await fetchListedNFTs();
-				const myNFTs = await fetchMyNFTs();
-				setMyNFTs(myNFTs);
+				const listedNFTs = await fetchListedNFTandMyNFT("listedNFT");
+				const marketItems = await fetchMarketItems();
 				setCollectNFTs(listedNFTs);
+				setSellingNFTs(marketItems.filter((nft) => nft.seller === address));
 			} catch (error) {
 				toast.error("Error fetching NFTs");
 				console.error(error);
@@ -38,7 +39,7 @@ function Profile() {
 				setLoading(false);
 			}
 		})();
-	}, [fetchListedNFTs, fetchMyNFTs]);
+	}, [address, fetchListedNFTandMyNFT, fetchMarketItems]);
 
 	return (
 		<div className={Style.author}>
@@ -56,7 +57,7 @@ function Profile() {
 					collectiables={collectiables}
 					created={created}
 					nfts={collectNFTs}
-					myNFTS={myNFTs}
+					myNFTS={sellingNFTs}
 				/>
 			)}
 
