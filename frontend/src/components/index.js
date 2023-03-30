@@ -13,3 +13,4 @@ export { default as Service } from "./Service/Service";
 export { default as Slider } from "./Slider/Slider";
 export { default as Title } from "./Title/Title";
 export { default as Video } from "./Video/Video";
+export { default as Backdrop } from "./Backdrop/Backdrop";

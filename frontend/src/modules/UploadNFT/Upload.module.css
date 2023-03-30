@@ -45,10 +45,8 @@
 }
 .upload_box_btn {
 	width: 100%;
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	margin-block: 4rem;
 	gap: 2rem;
+	margin-block: 4rem;
 }
 
 .upload_box_btn_style {
@@ -69,7 +67,9 @@
 	background-color: var(--icons-color);
 	color: var(--main-bg-color);
 }
-
+.full {
+	width: 100%;
+}
 @media screen and (max-width: 35em) {
 	.upload_box_slider_div {
 		display: grid;

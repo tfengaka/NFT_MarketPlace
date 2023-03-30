@@ -1,15 +1,14 @@
+import { MediaRenderer } from "@thirdweb-dev/react";
 import React, { useState } from "react";
 
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { TbPlayerPause, TbPlayerPlay } from "react-icons/tb";
 
 //INTERNAL IMPORT
-import images from "~/images";
+import images, { audio } from "~/images";
 import Style from "./AudioCard.module.css";
 
 const AudioCard = () => {
 	const [like, setLike] = useState(false);
-	const [play, setPlay] = useState(false);
 
 	const likeNft = () => {
 		if (!like) {
@@ -19,13 +18,6 @@ const AudioCard = () => {
 		}
 	};
 
-	const playMusic = () => {
-		if (!play) {
-			setPlay(true);
-		} else {
-			setPlay(false);
-		}
-	};
 	return (
 		<div className={Style.audioCard}>
 			<div className={Style.audioCard_box}>
@@ -52,7 +44,7 @@ const AudioCard = () => {
 
 				<div className={Style.audioCard_box_player}>
 					<img src={images.musiceWave} alt="musice" />
-					<div
+					{/* <div
 						className={Style.audioCard_box_musicPlayer}
 						onClick={() => playMusic()}
 					>
@@ -65,7 +57,7 @@ const AudioCard = () => {
 								<TbPlayerPlay />
 							</div>
 						)}
-					</div>
+					</div> */}
 				</div>
 
 				<div className={Style.audioCard_box_details}>
@@ -79,7 +71,15 @@ const AudioCard = () => {
 				</div>
 
 				<div className={Style.audioCard_box_img}>
-					<img src={images.creatorbackground10} alt="background" />
+					<MediaRenderer
+						controls
+						src={audio}
+						poster={images.creatorbackground10}
+						alt="background"
+						width="100%"
+						height="100%"
+						className={Style.audioCard_box_img_img}
+					/>
 				</div>
 			</div>
 		</div>

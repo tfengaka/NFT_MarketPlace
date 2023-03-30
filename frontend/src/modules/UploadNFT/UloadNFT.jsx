@@ -81,15 +81,15 @@ const UloadNFT = ({ createNFT }) => {
 
 				<div className={Style.upload_box_btn}>
 					<Button
-						btnName="Upload"
+						btnName="Create Token"
 						handleClick={() => createNFT(ipfs, name, price)}
-						classStyle={Style.upload_box_btn_style}
+						classStyle={`${Style.upload_box_btn_style} ${Style.full}`}
 					/>
-					<Button
+					{/* <Button
 						btnName="Reset"
 						handleClick={async () => {}}
 						classStyle={`${Style.upload_box_btn_style} ${Style.reset}`}
-					/>
+					/> */}
 				</div>
 			</div>
 		</div>

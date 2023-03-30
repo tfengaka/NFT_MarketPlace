@@ -20,7 +20,7 @@ const HeroSection = () => {
 					</p>
 					<Button
 						btnName="Start your search"
-						handleClick={() => navigate("/searchPage")}
+						handleClick={() => navigate("/search")}
 					/>
 				</div>
 				<div className={Style.heroSection_box_right}>

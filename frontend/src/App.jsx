@@ -31,11 +31,12 @@ function App() {
 					<Route path="uploadNFT" element={<UploadNFT />} />
 					<Route element={<PrivateRoute />}>
 						<Route path="profile" element={<Profile />} />
+						<Route path="resell-token">
+							<Route path=":slug" element={<ResellToken />} />
+						</Route>
 					</Route>
-					<Route path="resell-token">
-						<Route path=":slug" element={<ResellToken />} />
-					</Route>
-					<Route path="searchPage" element={<Search />} />
+
+					<Route path="search" element={<Search />} />
 					<Route path="nft-details">
 						<Route path=":slug" element={<NFTDetail />} />
 					</Route>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 //INTRNAL IMPORT
-import { Brand, Filter, Loader, Slider } from "../components";
+import { Brand, Loader, Slider } from "../components";
 import images from "../images";
 import { Banner, NFTCardTwo } from "../modules/Collections";
 import { SearchBar } from "../modules/Searchs";
@@ -52,7 +52,7 @@ const Search = () => {
 				onHandleSearch={onHandleSearch}
 				onClearSearch={onClearSearch}
 			/>
-			<Filter />
+			{/* <Filter /> */}
 			{nfts.length === 0 ? <Loader /> : <NFTCardTwo NFTData={nfts} />}
 			<Slider />
 			<Brand />

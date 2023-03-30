@@ -16,7 +16,7 @@ import {
 	TiSocialTwitter,
 	TiSocialYoutube,
 } from "react-icons/ti";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //INTERNAL IMPORT
 import { Button } from "~/components";
@@ -25,10 +25,12 @@ import Style from "./NFTDescription.module.css";
 
 //IMPORT SMART CONTRACT
 import { useNFTMarketPlace } from "../../../contexts/MarketplaceContext";
+import { Backdrop, Loader } from "../../../components";
+import slugify from "react-slugify";
 
 const NFTDescription = ({ nft }) => {
-	const { address, buyNFT } = useNFTMarketPlace();
-
+	const { address, loading, buyNFT } = useNFTMarketPlace();
+	const navigate = useNavigate();
 	const [social, setSocial] = useState(false);
 	const [NFTMenu, setNFTMenu] = useState(false);
 
@@ -47,6 +49,17 @@ const NFTDescription = ({ nft }) => {
 			setSocial(false);
 		} else {
 			setNFTMenu(false);
+		}
+	};
+
+	const handleBuyNFT = async () => {
+		try {
+			const tx = await buyNFT(nft);
+			if (tx) {
+				navigate("/profile");
+			}
+		} catch (error) {
+			console.error(error);
 		}
 	};
 
@@ -180,19 +193,18 @@ const NFTDescription = ({ nft }) => {
 								<Button
 									icon={<FaWallet />}
 									btnName="List on Marketplace"
-									handleClick={() => {
-										console.log("ReSell Token");
-										// router.push(
-										// 	`/reSellToken?id=${nft.tokenId}&tokenURI=${nft.tokenURI}&price=${nft.price}`
-										// )
-									}}
+									handleClick={() =>
+										navigate(`/resell-token/${slugify(nft?.name)}`, {
+											state: { ...nft },
+										})
+									}
 									classStyle={Style.button}
 								/>
 							) : (
 								<Button
 									icon={<FaWallet />}
 									btnName="Buy NFT"
-									handleClick={() => buyNFT(nft)}
+									handleClick={handleBuyNFT}
 									classStyle={Style.button}
 								/>
 							)}
@@ -200,6 +212,11 @@ const NFTDescription = ({ nft }) => {
 					</div>
 				</div>
 			</div>
+			{loading && (
+				<Backdrop>
+					<Loader />
+				</Backdrop>
+			)}
 		</div>
 	);
 };

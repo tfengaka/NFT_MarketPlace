@@ -1,9 +1,10 @@
 import { MediaRenderer } from "@thirdweb-dev/react";
 import React, { useCallback, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
-import { MdTimer, MdVerified } from "react-icons/md";
+import { MdVerified } from "react-icons/md";
 import { TbArrowBigLeftLines, TbArrowBigRightLine } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
+import slugify from "react-slugify";
 
 //INTERNAL IMPORT
 import images from "~/images";
@@ -127,14 +128,14 @@ const BigNFTSilder = ({ data }) => {
 							</span>
 						</div>
 
-						<p className={Style.bigNFTSlider_box_left_bidding_box_auction}>
+						{/* Auction Timer */}
+						{/* <p className={Style.bigNFTSlider_box_left_bidding_box_auction}>
 							<MdTimer
 								className={Style.bigNFTSlider_box_left_bidding_box_icon}
 							/>
 							<span>Auction ending in</span>
-						</p>
-
-						<div className={Style.bigNFTSlider_box_left_bidding_box_timer}>
+						</p> */}
+						{/* <div className={Style.bigNFTSlider_box_left_bidding_box_timer}>
 							<div
 								className={Style.bigNFTSlider_box_left_bidding_box_timer_item}
 							>
@@ -162,14 +163,16 @@ const BigNFTSilder = ({ data }) => {
 								<p>{55}</p>
 								<span>secs</span>
 							</div>
-						</div>
+						</div> */}
 
 						<div className={Style.bigNFTSlider_box_left_button}>
-							<Button btnName="Place" handleClick={() => {}} />
+							{/* <Button btnName="Place" handleClick={() => {}} /> */}
 							<Button
-								btnName="View"
+								btnName="View NFT"
 								handleClick={() =>
-									navigate("/nft-details/1", { state: { ...data } })
+									navigate(`/nft-details/${slugify(data[idNumber].name)}`, {
+										state: { ...data[idNumber] },
+									})
 								}
 							/>
 						</div>

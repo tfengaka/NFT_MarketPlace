@@ -29,7 +29,7 @@ const Brand = () => {
 						/>
 						<Button
 							btnName="Discover"
-							handleClick={() => navigate("/searchPage")}
+							handleClick={() => navigate("/search")}
 						/>
 					</div>
 				</div>

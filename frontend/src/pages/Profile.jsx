@@ -30,7 +30,7 @@ function Profile() {
 			try {
 				const listedNFTs = await fetchListedNFTandMyNFT("listedNFT");
 				const marketItems = await fetchMarketItems();
-				setCollectNFTs(listedNFTs);
+				setCollectNFTs(listedNFTs.filter((nft) => nft.owner === address));
 				setSellingNFTs(marketItems.filter((nft) => nft.seller === address));
 			} catch (error) {
 				toast.error("Error fetching NFTs");

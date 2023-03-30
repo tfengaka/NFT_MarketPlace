@@ -5,17 +5,19 @@ import {
 	useContractWrite,
 } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
 const marketplaceContext = createContext();
 
 function useMarketplaceProvider() {
 	const [loading, setLoading] = useState(false);
 
-	const { contract: marketplaceContract, isLoading: marketplaceLoading } =
-		useContract(import.meta.env.VITE_MARKETPLACE_ADDRESS);
-	const { contract: transferFundContract, isLoading: transferFundLoading } =
-		useContract(import.meta.env.VITE_TRANSFERFUND_ADDRESS);
+	const { contract: marketplaceContract } = useContract(
+		import.meta.env.VITE_MARKETPLACE_ADDRESS
+	);
+	const { contract: transferFundContract } = useContract(
+		import.meta.env.VITE_TRANSFERFUND_ADDRESS
+	);
 	const address = useAddress();
 
 	const { mutateAsync: create } = useContractWrite(
@@ -27,7 +29,10 @@ function useMarketplaceProvider() {
 		marketplaceContract,
 		"createMarketSale"
 	);
-
+	const { mutateAsync: resellToken } = useContractWrite(
+		marketplaceContract,
+		"resellToken"
+	);
 	const { data: rawMarketItems } = useContractRead(
 		marketplaceContract,
 		"fetchMarketItems"
@@ -40,12 +45,6 @@ function useMarketplaceProvider() {
 		marketplaceContract,
 		"fetchMyNFTs"
 	);
-
-	useEffect(() => {
-		if (marketplaceLoading || transferFundLoading) {
-			setLoading(true);
-		}
-	}, [marketplaceLoading, transferFundLoading]);
 
 	const convertNFTData = async (rawArr) => {
 		if (!rawArr || rawArr.length === 0) return [];
@@ -101,6 +100,7 @@ function useMarketplaceProvider() {
 			toast.error("Error creating NFT:  No wallet connected");
 			return;
 		}
+		setLoading(true);
 		try {
 			const listingPriceWei = await marketplaceContract.call("getListingPrice");
 			const listingPrice = ethers.utils.formatEther(listingPriceWei.toString());
@@ -114,12 +114,14 @@ function useMarketplaceProvider() {
 				},
 			]);
 
-			toast.success("Successfully\nTrascation hash: " + tx.hash);
+			toast.success("Successfully!\nTrascation hash: " + tx.hash);
 			console.log("Transaction:", tx);
 			return tx;
 		} catch (err) {
-			toast.error("Error creating NFT: " + err.message || "Unknown error");
+			toast.error(`${String(err.message).substring(0, 200)}...`);
 			console.error("contract call failed", err);
+		} finally {
+			setLoading(false);
 		}
 	}
 
@@ -132,6 +134,7 @@ function useMarketplaceProvider() {
 			toast.error("Error creating NFT:  No wallet connected");
 			return;
 		}
+		setLoading(true);
 		try {
 			const price = ethers.utils.parseEther(nft.price.toString());
 			const tx = await createMarketSale([
@@ -143,8 +146,41 @@ function useMarketplaceProvider() {
 			toast.success("Successfully\nTrascation hash: " + tx.hash);
 			return tx;
 		} catch (err) {
-			toast.error("Error buying NFT: " + err.message || "Unknown error");
+			toast.error(`${String(err.message).substring(0, 200)}...`);
 			console.error("contract call failed", err);
+		} finally {
+			setLoading(false);
+		}
+	}
+
+	async function reSellingToken(nft) {
+		if (!marketplaceContract) {
+			toast.error("Error creating NFT:  No marketplace contract");
+			return;
+		}
+		if (!address) {
+			toast.error("Error creating NFT:  No wallet connected");
+			return;
+		}
+		setLoading(true);
+		try {
+			const listingPriceWei = await marketplaceContract.call("getListingPrice");
+			const listingPrice = ethers.utils.formatEther(listingPriceWei.toString());
+			const price = ethers.utils.parseEther(nft.price.toString());
+			const tx = await resellToken([
+				nft.tokenId,
+				price,
+				{
+					value: ethers.utils.parseEther(listingPrice.toString()),
+				},
+			]);
+			toast.success("Successfully\nTrascation hash: " + tx.hash);
+			return tx;
+		} catch (err) {
+			toast.error(`${String(err.message).substring(0, 200)}...`);
+			console.error("contract call failed", err);
+		} finally {
+			setLoading(false);
 		}
 	}
 
@@ -157,6 +193,7 @@ function useMarketplaceProvider() {
 		fetchListedNFTandMyNFT,
 		createNewNFT,
 		buyNFT,
+		reSellingToken,
 	};
 }
 

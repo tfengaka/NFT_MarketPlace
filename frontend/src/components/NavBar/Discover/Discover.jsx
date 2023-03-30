@@ -20,7 +20,7 @@ const discover = [
 	},
 	{
 		name: "Search",
-		link: "/searchPage",
+		link: "/search",
 	},
 ];
 

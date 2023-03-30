@@ -1,15 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { MediaRenderer } from "@thirdweb-dev/react";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { Button } from "../components";
+import { Backdrop, Button, Loader } from "../components";
+import { useNFTMarketPlace } from "../contexts/MarketplaceContext";
 import images from "../images";
 import Style from "../styles/reSellToken.module.css";
 
 const ResellToken = () => {
 	const { state } = useLocation();
+	const navigate = useNavigate();
+	const { loading, reSellingToken } = useNFTMarketPlace();
 	const [price, setPrice] = useState("");
-	useEffect(() => {}, []);
+
+	const handleResellToken = async () => {
+		try {
+			const tx = await reSellingToken({ ...state, price });
+			if (tx) {
+				navigate("/search");
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	return (
 		<div className={Style.reSellToken}>
@@ -17,9 +30,11 @@ const ResellToken = () => {
 				<div>
 					<div className={Style.reSellToken_nft_frame}>
 						<div className={Style.reSellToken_nft_img}>
-							{!state?.image && (
+							{state?.image && (
 								<MediaRenderer
-									src={images.creatorbackground10}
+									src={state?.image}
+									poster={images.creatorbackground10}
+									controls
 									width="100%"
 									height="100%"
 								/>
@@ -30,14 +45,16 @@ const ResellToken = () => {
 
 				<div className={Style.nftInfo}>
 					<div className={Style.nftInfo_wrapper}>
-						<h2 className={Style.nftInfo_name}>{`NFT Name #TokenId`}</h2>
+						<h2
+							className={Style.nftInfo_name}
+						>{`${state?.name} #${state?.tokenId}`}</h2>
 						<div className={Style.nftInfo_owner}>
 							<div className={Style.nftInfo_owner_avatar}>
 								<img src={images.thirdweb} alt="avatar" />
 							</div>
 							<div className={Style.nftInfo_owner_name}>
 								<label>Owner Address</label>
-								<span>{"0x4873894375983475493857349574389"}</span>
+								<span>{state?.owner}</span>
 							</div>
 						</div>
 					</div>
@@ -47,7 +64,9 @@ const ResellToken = () => {
 						<span className={Style.nftInfo_price_label}>
 							Previous Price (ETH)
 						</span>
-						<span className={Style.nftInfo_price_value}>0.55 ETH</span>
+						<span
+							className={Style.nftInfo_price_value}
+						>{`${state.price} ETH`}</span>
 					</div>
 					<div className={`${Style.nftInfo_price}`}>
 						<span className={Style.nftInfo_price_label}>
@@ -65,10 +84,15 @@ const ResellToken = () => {
 					</div>
 
 					<div className={Style.reSellToken_box_btn}>
-						<Button btnName="Resell Now" handleClick={() => {}} />
+						<Button btnName="Resell Now" handleClick={handleResellToken} />
 					</div>
 				</div>
 			</div>
+			{loading && (
+				<Backdrop>
+					<Loader />
+				</Backdrop>
+			)}
 		</div>
 	);
 };

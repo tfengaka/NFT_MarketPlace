@@ -1,11 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import Style from "~/styles/upload-nft.module.css";
+import { Backdrop, Loader } from "../components";
 import { useNFTMarketPlace } from "../contexts/MarketplaceContext";
 import { Upload } from "../modules/UploadNFT";
 
 function UploadNFT() {
-	const { createNewNFT } = useNFTMarketPlace();
+	const { loading, createNewNFT } = useNFTMarketPlace();
+	const navigate = useNavigate();
+	const handleCreateNFT = async (tokenURI, name, price) => {
+		try {
+			const tx = await createNewNFT(tokenURI, name, price);
+			if (tx) {
+				navigate("/search");
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	};
 	return (
 		<div className={Style.uploadNFT}>
 			<div className={Style.uploadNFT_box}>
@@ -26,9 +39,14 @@ function UploadNFT() {
 				</div>
 
 				<div className={Style.uploadNFT_box_form}>
-					<Upload createNFT={createNewNFT} />
+					<Upload createNFT={handleCreateNFT} />
 				</div>
 			</div>
+			{loading && (
+				<Backdrop>
+					<Loader />
+				</Backdrop>
+			)}
 		</div>
 	);
 }
